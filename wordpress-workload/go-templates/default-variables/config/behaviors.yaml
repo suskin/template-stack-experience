@@ -11,3 +11,5 @@ crdOutputs:
   wordpressinstance.wordpress.samples.stacks.crossplane.io/v1alpha1:
     resources:
       - all.yaml
+    defaults:
+      - defaults.yaml
