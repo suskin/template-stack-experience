@@ -10,6 +10,8 @@
 crdOutputs:
   wordpressinstance.wordpress.samples.stacks.crossplane.io/v1alpha1:
     resources:
-      - all.yaml
+      - kubernetescluster.yaml
+      - mysqlinstance.yaml
+      - kubernetesapplication.yaml
     defaults:
       - defaults.yaml

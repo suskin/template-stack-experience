@@ -1,28 +1,4 @@
 ---
-apiVersion: compute.crossplane.io/v1alpha1
-kind: KubernetesCluster
-metadata:
-  name: wordpress-cluster-{{ .uniqueid }}
-  labels:
-    stack: sample-stack-wordpress
-spec:
-  writeConnectionSecretToRef:
-    name: wordpress-demo-cluster-{{ .uniqueid }}
----
-apiVersion: database.crossplane.io/v1alpha1
-kind: MySQLInstance
-metadata:
-  name: wordpress-mysql-{{ .uniqueid }}
-  labels:
-    stack: sample-stack-wordpress
-spec:
-  engineVersion: "5.7"
-  # A secret is exported by providing the secret name
-  # to export it under. This is the name of the secret
-  # in the crossplane cluster, and it's scoped to this claim's namespace.
-  writeConnectionSecretToRef:
-    name: sql-{{ .uniqueid }}
----
 apiVersion: workload.crossplane.io/v1alpha1
 kind: KubernetesApplication
 metadata:
