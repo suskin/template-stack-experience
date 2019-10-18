@@ -1,4 +1,4 @@
-# composition, no install hook
+# composition, with an install hook
 
 If a stack author wants to compose the resources from multiple other
 stacks, they can do that. This example contains configuration for
@@ -17,14 +17,11 @@ The stacks in this example are the following:
 
 See `user/` for things the stack consumer creates.
 
+This example is very similar to the composition example with no install
+hook, except the user doesn't need to do anything for the prerequisites
+to be installed.
+
 The user first needs to install the `stack-wordpress` stack.
-
-Then, they can create a `WordpressPrerequisites` to signal
-`stack-wordpress` to install all of the other stacks:
-
-```
-kubectl apply -f user/prerequisites.yaml
-```
 
 Then, the user must wait for the other stacks to be installed, so that
 the CRDs that the other stacks define can b installed into the cluster.

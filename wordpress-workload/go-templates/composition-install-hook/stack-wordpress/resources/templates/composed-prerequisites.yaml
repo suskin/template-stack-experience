@@ -1,0 +1,21 @@
+---
+apiVersion: stacks.crossplane.io/v1alpha1
+kind: StackInstall
+metadata:
+  name: "stack-mysql-instance"
+spec:
+  package: "crossplane-examples/stack-mysql-instance"
+---
+apiVersion: stacks.crossplane.io/v1alpha1
+kind: StackInstall
+metadata:
+  name: "stack-kubernetes-cluster-instance"
+spec:
+  package: "crossplane-examples/stack-kubernetes-cluster-instance"
+---
+apiVersion: stacks.crossplane.io/v1alpha1
+kind: StackInstall
+metadata:
+  name: "stack-kubernetes-application"
+spec:
+  package: "crossplane-examples/stack-kubernetes-application"
