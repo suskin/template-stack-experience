@@ -1,0 +1,15 @@
+---
+apiVersion: wordpress.samples.stacks.crossplane.io/v1alpha1
+kind: WordpressInstance
+metadata:
+  name: wordpressinstance-sample
+spec:
+  uniqueid: variant1
+---
+apiVersion: wordpress.samples.stacks.crossplane.io/v1alpha1
+kind: WordpressInstance
+metadata:
+  name: wordpressinstance-sample-two
+spec:
+  uniqueid: variant2
+  imageid: "wordpress:5-apache"
