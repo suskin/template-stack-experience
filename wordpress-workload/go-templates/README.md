@@ -117,13 +117,13 @@ use-cases the examples cover, and where to find them:
 * No variables - see the `no-variables` folder
 * Default template bindings - see `default-variables`
 * User-provided template bindings - see `user-variables`
+* Multiple CRD types - see `multiple-crds`
 * Template-based variants - see `variants`
     - Multiple renderings in a single namespace - see `variants`
     - Multiple renderings in different namespaces - see `variants`
 * Splitting code across multiple stacks; composition
     - With what we have today: `composition-now`
     - Without install-time template rendering: `composition-install-hook`
-* Multiple CRD types - see `multiple-crds`
 
 ## NOT covered by the examples
 

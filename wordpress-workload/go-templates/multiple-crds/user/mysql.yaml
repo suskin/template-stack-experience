@@ -1,0 +1,6 @@
+apiVersion: wordpress.samples.stacks.crossplane.io/v1alpha1
+kind: MySQLInstanceWrapper
+metadata:
+  name: mysqlinstancewrapper-sample
+spec:
+  uniqueid: mysqlid
