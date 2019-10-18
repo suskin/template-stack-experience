@@ -122,8 +122,9 @@ use-cases the examples cover, and where to find them:
     - Multiple renderings in a single namespace - see `variants`
     - Multiple renderings in different namespaces - see `variants`
 * Splitting code across multiple stacks; composition
-    - With what we have today: `composition-now`
-    - Without install-time template rendering: `composition-install-hook`
+    - With no install-time template rendering:
+      `composition-no-install-hook`
+    - With install-time template rendering: `composition-install-hook`
 
 ## NOT covered by the examples
 

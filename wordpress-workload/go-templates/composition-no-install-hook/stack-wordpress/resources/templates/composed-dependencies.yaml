@@ -1,0 +1,14 @@
+apiVersion: wordpress.samples.stacks.crossplane.io/v1alpha1
+kind: KubernetesClusterInstance
+metadata:
+  name: wordpressinstance-sample
+---
+apiVersion: wordpress.samples.stacks.crossplane.io/v1alpha1
+kind: MySQLInstance
+metadata:
+  name: wordpressinstance-sample
+---
+apiVersion: wordpress.samples.stacks.crossplane.io/v1alpha1
+kind: KubernetesApplicationInstance
+metadata:
+  name: wordpressinstance-sample
