@@ -1,0 +1,73 @@
+---
+# example-network will be the VPC that all cloud instances we'll create will use.
+apiVersion: compute.gcp.crossplane.io/v1alpha2
+kind: Network
+metadata:
+  name: {{ .network.name }}
+  namespace: {{ .namespace }}
+spec:
+  name: {{ .networkName }}
+  autoCreateSubnetworks: false
+  providerRef:
+    name: {{ .provider.name }}
+    namespace: {{ .provider.namespace }}
+  reclaimPolicy: Delete
+  routingConfig:
+    routingMode: REGIONAL
+---
+# example-subnetwork defines IP ranges to be used by GKE cluster.
+apiVersion: compute.gcp.crossplane.io/v1alpha2
+kind: Subnetwork
+metadata:
+  name: {{ .subnetwork.name }}
+  namespace: {{ .namespace }}
+spec:
+  providerRef:
+    name: {{ .provider.name }}
+    namespace: {{ .provider.namespace }}
+  reclaimPolicy: Delete
+  name: {{ .subnetwork.name }}
+  region: {{ .subnetwork.region }}
+  ipCidrRange: "192.168.0.0/24"
+  privateIpGoogleAccess: true
+  secondaryIpRanges:
+    - rangeName: pods
+      ipCidrRange: 10.0.0.0/8
+    - rangeName: services
+      ipCidrRange: 172.16.0.0/16
+  network: projects/{{ .project.id }}/global/networks/{{ .network.name }}
+---
+# example-globaladdress defines the IP range that will be allocated for cloud services connecting
+# to the instances in the given Network.
+apiVersion: compute.gcp.crossplane.io/v1alpha2
+kind: GlobalAddress
+metadata:
+  name: {{ .globaladdress.name }}
+  namespace: {{ .namespace }}
+spec:
+  providerRef:
+    name: {{ .provider.name }}
+    namespace: {{ .provider.namespace }}
+  reclaimPolicy: Delete
+  name: {{ .globaladdress.name }}
+  purpose: VPC_PEERING
+  addressType: INTERNAL
+  prefixLength: 16
+  network: projects/{{ .project.id }}/global/networks/{{ .network.name }}
+---
+# example-connection is what allows cloud services to use the allocated GlobalAddress for communication. Behind
+# the scenes, it creates a VPC peering to the network that those service instances actually live.
+apiVersion: servicenetworking.gcp.crossplane.io/v1alpha2
+kind: Connection
+metadata:
+  name: {{ .connection.name }}
+  namespace: {{ .namespace }}
+spec:
+  providerRef:
+    name: {{ .provider.name }}
+    namespace: {{ .provider.namespace }}
+  reclaimPolicy: Delete
+  parent: services/servicenetworking.googleapis.com
+  network: projects/{{ .project.id }}/global/networks/{{ .network.name }}
+  reservedPeeringRanges:
+    - {{ .globaladdress.name }}

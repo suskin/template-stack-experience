@@ -1,0 +1,15 @@
+# The behaviors configuration specifies how the shared
+# controller should respond to various events.
+#
+# Currently the behaviors configuration only specifies
+# what templates should be rendered in response to an
+# instance of a known CRD, but it could be used to specify
+# other behaviors, such as:
+# * Rendering templates at install time
+# * Updating the status field of an instance of a known CRD
+crdOutputs:
+  wordpressgcpnetworkinstances.wordpress.samples.stacks.crossplane.io/v1alpha1:
+    resources:
+      - network.yaml
+    defaults:
+      - defaults.yaml

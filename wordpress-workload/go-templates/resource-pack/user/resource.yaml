@@ -1,0 +1,7 @@
+apiVersion: wordpress.samples.stacks.crossplane.io/v1alpha1
+kind: WordpressGCPNetworkInstance
+metadata:
+  name: wordpressinstance-sample
+spec:
+  project:
+    id: example-projectid

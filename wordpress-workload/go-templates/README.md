@@ -118,6 +118,7 @@ use-cases the examples cover, and where to find them:
 * Default template bindings - see `default-variables`
 * User-provided template bindings - see `user-variables`
 * Multiple CRD types - see `multiple-crds`
+* Resource packs - see `resource-pack`
 * Template-based variants - see `variants`
     - Multiple renderings in a single namespace - see `variants`
     - Multiple renderings in different namespaces - see `variants`
