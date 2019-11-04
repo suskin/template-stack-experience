@@ -30,6 +30,13 @@ spec:
         spec:
           description: WordpressInstanceSpec defines the desired state of WordpressInstance
           type: object
+          properties:
+            uniqueid:
+              type: string
+              default: "1234"
+            imageid:
+              type: string
+              default: "wordpress:4.6.1-apache"
         status:
           description: WordpressInstanceStatus defines the observed state of WordpressInstance
           type: object
