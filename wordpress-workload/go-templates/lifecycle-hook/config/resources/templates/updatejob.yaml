@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: schemaupdate
+spec:
+  template:
+    spec:
+      containers:
+      - name: schemaupdate
+        image: upbound/schemaupdate:latest
+        command: ["/update-schema.sh"]
+        volumeMounts:
+        - name: database-credentials
+          mountPath: /database-credentials
+        # Template controller would add old and new
+        # wordpress instance parameters here
+      restartPolicy: Never
+      volumes:
+      - name: database-credentials
+        secret:
+          secretName: sql-{{ .name }}
+      # Template controller would add old and new
+      # wordpress instance parameters here
+      # How does it know how to do that?
+  backoffLimit: 4
+
+
+  # Parameters:
+  #
+  # The template shared controller will provide:
+  # - The old wordpress
+  # - The new wordpress
+  #
+  # We'll also have task-specific parameters:
+  # - Credentials for connecting to the mysql / database thing

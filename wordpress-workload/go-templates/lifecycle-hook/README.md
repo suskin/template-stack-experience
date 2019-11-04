@@ -37,12 +37,12 @@ The Kubernetes term for such logic is "controller" logic.
 * An **event** is a signal raised when a change happens to a target
   resource. The event indicates the type and details of the change.
 * A **trigger** is a set of glue logic to call a hook when an event
-  occurs. It consists of a hook and a filter.
+  occurs. It consists of a hook and a selector.
 * An event may **trip** a trigger.
 * A **hook** is some set of custom logic which is invoked by a trigger
   in response to an event. For example, a hook may manage a deployment
   rollout, or may upgrade a schema's database.
-* A trigger may be configured with a **filter** so that it only calls
+* A trigger may be configured with a **selector** so that it only calls
   its hook if the event matches certain criteria.
 
 ## Events
@@ -106,17 +106,17 @@ committed. The objects passed to the hook should be considered
 immutable. This is similar to the behavior of the [shared informer
 controller][shared-informer-controller] in the client-go library.
 
-### Event Filters
+### Event Selectors
 
-A more sophisticated trigger may also include a **filter**, which
+A more sophisticated trigger may also include a **selector**, which
 requires a certain condition to be true for the trigger to trip, even if
 an event occurred. For example, maybe a resource is created, which could
-cause a trigger to trip, but the trigger has a filter specifying that
+cause a trigger to trip, but the trigger has a selector specifying that
 the name of the resource must be `triggeringname`. If the resource had a
 name of `coolname`, the trigger would not trip.
 
-Filters could theoretically be contained in the logic portion of a hook,
-instead of in the trigger portion. Filters in the trigger portion are
+Selectors could theoretically be contained in the logic portion of a hook,
+instead of in the trigger portion. Selectors in the trigger portion are
 considered a convenience for the author of the logic portion.
 
 ## Logic
