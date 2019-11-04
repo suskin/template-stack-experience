@@ -7,12 +7,14 @@
 # other behaviors, such as:
 # * Rendering templates at install time (as seen in this example)
 # * Updating the status field of an instance of a known CRD
-crdOutputs:
-  wordpressinstance.wordpress.samples.stacks.crossplane.io/v1alpha1:
-    resources:
-      - composed-dependencies.yaml
+behaviors:
+  crds:
+    wordpressinstance.wordpress.samples.stacks.crossplane.io/v1alpha1:
+      resources:
+        - templates/composed-dependencies.yaml
 
-# These templates are rendered when the stack is installed
-install:
-  resources:
-    - composed-prerequisites.yaml
+  hooks:
+    # These templates are rendered when the stack is installed
+    postInstall:
+      - resources:
+          - templates/composed-prerequisites.yaml

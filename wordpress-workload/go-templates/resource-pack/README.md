@@ -11,7 +11,7 @@ on GCP. In real-world usage, the user would also need to set up their
 GCP provider before creating these network resources, and would need to
 do a few other things after creating these network resources. See the
 [GCP section of the Stacks
-Guide](https://crossplaneio.github.io/docs/v0.3/stacks-guide-gcp.html)
+Guide](https://crossplaneio.github.io/docs/master/stacks-guide-gcp.html)
 for more details about all the steps involved in the Real World.
 
 ## Stack consumer experience

@@ -3,4 +3,5 @@ kind: WordpressInstance
 metadata:
   name: wordpressinstance-sample
 spec:
-  uniqueid: myuniqueid
+  name: myuniquename
+  image: "wordpress:5-apache"

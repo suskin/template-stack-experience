@@ -30,6 +30,43 @@ spec:
         spec:
           description: WordpressGCPNetworkInstanceSpec defines the desired state of WordpressGCPNetworkInstance
           type: object
+          properties:
+            network:
+              type: object
+              properties:
+                name:
+                  type: string
+                  default: "example-network"
+            subnetwork:
+              type: object
+              properties:
+                name:
+                  type: string
+                  default: "example-subnetwork"
+                region:
+                  type: string
+                  default: "us-central1"
+            provider:
+              type: object
+              properties:
+                name:
+                  type: string
+                  default: "gcp-provider"
+                namespace:
+                  type: string
+                  default: "gcp"
+            globaladdress:
+              type: object
+              properties:
+                name:
+                  type: string
+                  name: "example-globaladdress"
+            connection:
+              type: object
+              properties:
+                name:
+                  type: string
+                  default: "example-connection"
         status:
           description: WordpressGCPNetworkInstanceStatus defines the observed state of WordpressGCPNetworkInstance
           type: object

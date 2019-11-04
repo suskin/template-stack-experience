@@ -30,6 +30,17 @@ spec:
         spec:
           description: WordpressInstanceSpec defines the desired state of WordpressInstance
           type: object
+          properties:
+            name:
+              type: string
+              description: A name to distinguish resources created for this WordpressInstance
+            image:
+              type: string
+              description: A custom wordpress container image id to use
+              # NOTE defaults are specified like this, using the schema validation for CRD fields.
+              # For more about how this works with CRDs, see:
+              # https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#defaulting
+              default: "wordpress:4.6.1-apache"
         status:
           description: WordpressInstanceStatus defines the observed state of WordpressInstance
           type: object

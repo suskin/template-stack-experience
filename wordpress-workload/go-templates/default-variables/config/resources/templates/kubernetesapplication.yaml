@@ -2,7 +2,7 @@
 apiVersion: workload.crossplane.io/v1alpha1
 kind: KubernetesApplication
 metadata:
-  name: wordpress-app-{{ .uniqueid }}
+  name: wordpress-app-{{ .name }}
   labels:
     stack: sample-stack-wordpress
 spec:
@@ -14,7 +14,7 @@ spec:
       stack: sample-stack-wordpress
   resourceTemplates:
   - metadata:
-      name: wordpress-demo-namespace-{{ .uniqueid }}
+      name: wordpress-demo-namespace-{{ .name }}
       labels:
         stack: sample-stack-wordpress
     spec:
@@ -26,7 +26,7 @@ spec:
           labels:
             app: wordpress
   - metadata:
-      name: wordpress-demo-deployment-{{ .uniqueid }}
+      name: wordpress-demo-deployment-{{ .name }}
       labels:
         stack: sample-stack-wordpress
     spec:
@@ -34,7 +34,7 @@ spec:
         # This must match the writeConnectionSecretToRef field
         # on the database claim; it is the name of the secret to
         # pull from the crossplane cluster, from this Application's namespace.
-        - name: sql-{{ .uniqueid }}
+        - name: sql-{{ .name }}
       template:
         apiVersion: apps/v1
         kind: Deployment
@@ -54,7 +54,7 @@ spec:
             spec:
               containers:
                 - name: wordpress
-                  image: wordpress:4.6.1-apache
+                  image: {{ .image }}
                   env:
                     - name: WORDPRESS_DB_HOST
                       valueFrom:
@@ -65,23 +65,23 @@ spec:
                           # a crossplane-managed secret is written as '{metadata.name}-{secretname}'.
                           # The metadata name is specified above for this resource, and so is
                           # the secret name.
-                          name: wordpress-demo-deployment-{{ .uniqueid }}-sql-{{ .uniqueid }}
+                          name: wordpress-demo-deployment-{{ .name }}-sql-{{ .name }}
                           key: endpoint
                     - name: WORDPRESS_DB_USER
                       valueFrom:
                         secretKeyRef:
-                          name: wordpress-demo-deployment-{{ .uniqueid }}-sql-{{ .uniqueid }}
+                          name: wordpress-demo-deployment-{{ .name }}-sql-{{ .name }}
                           key: username
                     - name: WORDPRESS_DB_PASSWORD
                       valueFrom:
                         secretKeyRef:
-                          name: wordpress-demo-deployment-{{ .uniqueid }}-sql-{{ .uniqueid }}
+                          name: wordpress-demo-deployment-{{ .name }}-sql-{{ .name }}
                           key: password
                   ports:
                     - containerPort: 80
                       name: wordpress
   - metadata:
-      name: wordpress-demo-service-{{ .uniqueid }}
+      name: wordpress-demo-service-{{ .name }}
       labels:
         stack: sample-stack-wordpress
     spec:

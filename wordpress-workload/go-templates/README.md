@@ -100,11 +100,13 @@ Errors will show up in a couple places:
 
 ## Structure of examples
 
-The examples have three sections:
+The examples have a few sections:
 
 * A README.md explaining what the example shows
+* A `stack.yaml` which is the top-level configuration for the stack.
 * A `config` folder which shows the structure of the configuration in a
-  stack which wants to use the functionality from the example
+  stack which wants to use the functionality from the example. This
+  roughly corresponds to the contents of a built stack package.
 * A `user` folder, which shows examples of resources the user would
   create
 
@@ -126,6 +128,7 @@ use-cases the examples cover, and where to find them:
     - With no install-time template rendering:
       `composition-no-install-hook`
     - With install-time template rendering: `composition-install-hook`
+* Lifecycle hooks (this is speculative): `lifecycle-hook`
 
 ## NOT covered by the examples
 

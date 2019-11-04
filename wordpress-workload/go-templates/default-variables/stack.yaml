@@ -7,9 +7,10 @@
 # other behaviors, such as:
 # * Rendering templates at install time
 # * Updating the status field of an instance of a known CRD
-crdOutputs:
-  wordpressgcpnetworkinstances.wordpress.samples.stacks.crossplane.io/v1alpha1:
-    resources:
-      - network.yaml
-    defaults:
-      - defaults.yaml
+behaviors:
+  crds:
+    wordpressinstance.wordpress.samples.stacks.crossplane.io/v1alpha1:
+      resources:
+        - templates/kubernetescluster.yaml
+        - templates/mysqlinstance.yaml
+        - templates/kubernetesapplication.yaml
