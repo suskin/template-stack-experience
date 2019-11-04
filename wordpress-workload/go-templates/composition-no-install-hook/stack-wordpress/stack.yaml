@@ -7,7 +7,11 @@
 # other behaviors, such as:
 # * Rendering templates at install time
 # * Updating the status field of an instance of a known CRD
-crdOutputs:
-  kubernetesclusterinstance.wordpress.samples.stacks.crossplane.io/v1alpha1:
-    resources:
-      - kubernetescluster.yaml
+behaviors:
+  crds:
+    wordpressinstance.wordpress.samples.stacks.crossplane.io/v1alpha1:
+      resources:
+        - templates/composed-dependencies.yaml
+    wordpressprerequisites.wordpress.samples.stacks.crossplane.io/v1alpha1:
+      resources:
+        - templates/composed-prerequisites.yaml
