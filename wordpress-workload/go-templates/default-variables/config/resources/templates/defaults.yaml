@@ -1,4 +1,0 @@
-# The claim's metadata and spec fields will be overlaid (in that order) to create
-# the template binding.
-# The defaults.yaml can be specified to provide default bindings.
-uniqueid: "1234"
