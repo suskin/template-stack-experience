@@ -17,8 +17,20 @@ project, building it, publishing it, and installing it.
 
 ### Initialize
 
+To initialize a new or existing project as a stack:
+
 ```
 kubectl crossplane stack init --template mygroup/mystackname
+```
+
+Optionally, when starting from scratch, a crd can be created at the same
+time:
+
+```
+$ kubectl crossplane stack init --template mygroup/mystackname --init-crd
+> CRD name: WordpressInstance
+> CRD plural: wordpressinstances
+> CRD subdomain: wordpress.samples.stacks.crossplane.io
 ```
 
 ### Add a CRD
@@ -156,7 +168,6 @@ building now.
 
 ## Open questions
 
-* Should the behaviors.yaml go into app.yaml?
-* Should the defaults.yaml go into app.yaml?
+* Should the behaviors and app.yaml be combined?
 * Should dependsOn be in app.yaml?
 * What about CRD schema and validation? Are we able to help with generating that?
