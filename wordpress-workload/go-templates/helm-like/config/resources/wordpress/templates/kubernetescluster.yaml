@@ -1,0 +1,11 @@
+---
+apiVersion: compute.crossplane.io/v1alpha1
+kind: KubernetesCluster
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: wordpress-cluster-{{ .Values.uniqueid }}
+  labels:
+    stack: sample-stack-wordpress
+spec:
+  writeConnectionSecretToRef:
+    name: wordpress-demo-cluster-{{ .Values.uniqueid }}

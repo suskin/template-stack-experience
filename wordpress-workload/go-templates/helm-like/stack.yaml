@@ -1,0 +1,9 @@
+# The behaviors configuration specifies how the shared
+# controller should respond to various events.
+behaviors:
+  crds:
+    wordpressinstance.wordpress.samples.stacks.crossplane.io/v1alpha1:
+      resources:
+        # "wordpress" specifies a folder in the resources directory, which
+        # will act as the entry point for the (helm) templating engine.
+        - wordpress

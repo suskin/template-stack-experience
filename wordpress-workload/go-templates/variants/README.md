@@ -1,4 +1,4 @@
-# user variables
+# variants
 
 A stack user can create multiple variants of a CRD handled by a template
 stack.
