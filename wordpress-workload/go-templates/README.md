@@ -141,6 +141,8 @@ use-cases the examples cover, and where to find them:
       `composition-no-install-hook`
     - With install-time template rendering: `composition-install-hook`
 * Lifecycle hooks (this is speculative): `lifecycle-hook`
+* Structuring the templates like a helm chart (this is somewhat
+  speculative): `helm-like`
 
 ## NOT covered by the examples
 
