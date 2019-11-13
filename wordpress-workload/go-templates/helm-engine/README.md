@@ -1,4 +1,4 @@
-# helm-like
+# helm-engine
 
 A stack user can create multiple variants of a CRD handled by a template
 stack. This is what it would look like if the format was as similar to a
