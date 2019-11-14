@@ -1,0 +1,7 @@
+resources:
+- app.yaml
+- database.yaml
+- cluster.yaml
+
+patch:
+- patch.yaml

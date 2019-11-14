@@ -1,0 +1,148 @@
+# Stack configuration
+#
+# Normally, some of the metadata (such as the name of the stack)
+# would be higher up in the document, but for the purposes
+# of this conceptual demo, the behavioral configuration is at the top instead.
+#
+# Configuration lifecycle hook
+# This hook is triggered when a stack is first installed. The input for any engine is the StackInstall's spec object.
+configure:
+  # directory
+  # For a docker image-based stack, the directory is the path from the workspace
+  # of the container. An absolute path can also be specified.
+  #
+  # For a github repo, the directory is relative to the root of the repo.
+  #
+  # '..' is not allowed.
+  - directory: configure
+
+    # Even though we're specifying a directory for this stack configuration, and bundling it
+    # in our stack, a git url or stack package could also be specified as the source of
+    # the stack. If url or package is specified, directory will be used in the following ways:
+    # - For url: directory will be the directory relative to the repository root.
+    # - For package: directory will be the directory relative to the image's workspace. (An
+    #   absolute directory can also be specified, to be relative to the root of the filesystem.)
+    # url: github.com/crossplaneio/stack-template-wordpress
+    # package: crossplane/stack-template-wordpress:latest
+
+    # Configuration for the engine which will process the resource files for this stack.
+    # This can be specified at a stack level, or at a per-hook level.
+    # If it is specified at a per-hook level, the hook will not use any of the configuration
+    # specified at the stack level. Maybe in the future we can figure out a nice way to merge
+    # them if it's used a lot.
+    engine:
+
+      # The engine with which the configuration will be processed.
+      # Accepted engines are: kustomize, go-kustomize, helm
+      type: go-kustomize
+
+      # Configuration is used to configure the specific engine
+      # which was chosen. The subkeys of configuration are specific to the engine which
+      # is selected.
+      configuration:
+
+        # Data will be treated as an interface{} with arbitrary structure, and will be passed
+        # into the go templating engine before the kustomization is applied.
+        #
+        # Data can also be overridden by setting fields on the .spec field of the object
+        # which triggered the resource processing. In the case of a 'configure' event,
+        # the object which triggered it is the StackInstall object.
+        data:
+          imageid: 'wordpress-5:latest'
+
+        # This is an escape hatch to allow usage of advanced kustomize functionality directly.
+        # Anything specified in kustomization will be placed into a kustomization.yaml which
+        # is configured to use the stack's kustomization as a base. For the full documentation
+        # of the kustomization.yaml syntax, see:
+        # https://kubectl.docs.kubernetes.io/pages/examples/kustomize.html
+        #
+        # This escape hatch is a speculative part of the design. For entries which reference
+        # files, one could imagine the contents coming from a configMap instead of from a file.
+        # kustomization:
+        #   namePrefix: coolprefix-
+        #   nameSuffix: -coolsuffix
+        #   images:
+        #     name: wordpress
+        #     newTag: 5.3.0-php7.1-fpm-alpine
+        #
+
+    # or source
+    # source: https://github.com/
+
+    # render engine
+    # kustomize:
+    # overlay: blah
+
+  # Questions:
+  # How do we get it to update when the source changes?
+  # Is "configure" the name we want for this hook?
+  # What if someone wants to define a behavior in response to a CRD?
+  # What if someone wants multiple configurations? It will fail because the CRD is already defined. Should we make it possible to configure it to not fail?
+  # Should it not fail by default?
+  # What about configuring a per-CRD hook?
+  # Could we have the wordpress templates/configuration also install the resource pack?
+  #
+  # TODO
+  # - Fill this out
+  # - Add comments for each field explaining the field
+  # - Add a top-level README with the steps a user would run
+  # - Show default values for the templates . . . can use `or x y` OR we can use CRD defaults
+  # - Create resource packs
+  # - Show infrastructure stacks being installed
+  # - Show escape hatch?
+  # - Show helm equivalent
+  # - Explain the plan
+  #
+
+
+# Metadata
+#
+# Normally, some of the metadata would be higher up in the document, but for the purposes
+# of this demo, the behavioral configuration is at the top instead.
+#
+# The "type" or "scope" of a stack. This field is commented out as it is still somewhat
+# speculative.
+# Accepted values: workspace, environment
+# type: workspace
+
+# Below this point is metadata which is identical to what is currently in app.yaml.
+#
+# In this design, the contents of app.yaml would be moved into stack.yaml, because having
+# a single configuration file with both metadata and behavioral configuration is a familiar
+# pattern for application developers.
+#
+# Human readable title of application.
+title: Sample Wordpress Stack
+
+overviewShort: Cloud portable Wordpress deployments behind managed Kubernetes and SQL services are demonstrated in this Crossplane Stack.
+overview: |-
+ This Wordpress stack uses a simple controller that uses Crossplane to orchestrate managed SQL services and managed Kubernetes clusters which are then used to run a Wordpress deployment.
+ A simple Custom Resource Definition (CRD) is provided allowing for instances of this Crossplane managed Wordpress Stack to be provisioned with a few lines of yaml.
+ The Sample Wordpress Stack is intended for demonstration purposes and should not be used to deploy production instances of Wordpress.
+
+# Maintainer names and emails.
+maintainers:
+- name: Daniel Suskin
+  email: daniel@upbound.io
+
+# Owner names and emails.
+owners:
+- name: Daniel Suskin
+  email: daniel@upbound.io
+
+# Human readable company name.
+company: Upbound
+
+# Keywords that describe this application and help search indexing
+keywords:
+- "samples"
+- "examples"
+- "tutorials"
+- "wordpress"
+
+# Links to more information about the application (about page, source code, etc.)
+website: "https://upbound.io"
+source: "https://github.com/crossplaneio/sample-stack-wordpress"
+
+# License SPDX name: https://spdx.org/licenses/
+license: Apache-2.0
