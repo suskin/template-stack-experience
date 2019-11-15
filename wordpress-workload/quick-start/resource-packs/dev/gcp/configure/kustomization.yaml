@@ -1,0 +1,14 @@
+---
+# We're using local resources in this kustomization, but we could have just as
+# easily specified a base to fork off of an existing pack instead. For example:
+# bases:
+# - https://github.com/crossplaneio/tbs/blob/master/episodes/5/assets/infra?ref=004b1f040588afba9114bd005e49ee82c0ab84f6
+# patch:
+# - patches/change-names.yaml
+resources:
+- cloudsql-class.yaml
+- gke-class.yaml
+- connection.yaml
+- global-address.yaml
+- network.yaml
+- subnetwork.yaml

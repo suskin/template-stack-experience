@@ -1,0 +1,12 @@
+---
+resources:
+- app.yaml
+- database.yaml
+- cluster.yaml
+
+# With a kustomization being preprocessed by the go templating engine,
+# one way to structure things would be to put all of the templates inside
+# a separate patch file. That way, all of the templatable variables can
+# be found in a single file, which makes it a bit easier to understand.
+patch:
+- patch.yaml
