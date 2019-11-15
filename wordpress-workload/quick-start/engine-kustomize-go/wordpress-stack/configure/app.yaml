@@ -1,3 +1,4 @@
+---
 apiVersion: workload.crossplane.io/v1alpha1
 kind: KubernetesApplication
 metadata:
