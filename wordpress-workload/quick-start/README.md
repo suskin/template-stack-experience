@@ -10,7 +10,9 @@ This example shows several different stacks coming together to enable a
 user to easily deploy an application using Crossplane and Stacks,
 similar to what was shown in episode 5 of TBS.
 
-This README lists the user steps for the experience.
+This README lists the user steps for the experience, in the [User
+Prerequisites](#user-prerequisites) and [User
+Steps](#user-steps) sections.
 
 This repository contains realistic and complete examples for the stacks
 and other resources needed to walk through the experience.
@@ -27,6 +29,19 @@ In the examples, the following is shown:
   repository.
 * What it would look and feel like to override template values, for
   multiple engines.
+
+Here's a guide to the different stacks in this example:
+
+* `infra-stacks/` doesn't have any stack definitions; just resource
+  yamls for installing infrastructure stacks.
+* `resource-packs/dev/gcp/` has a stack definition for a resource pack
+  for setting up infrastructure quickly on GCP.
+* `app-stack/go-kustomize/` has a stack definition for an app stack
+  which creates a WordPress workload when the stack is installed. It
+  uses go templates and kustomize to process the resource files.
+* `app-stack/helm2/` has a stack definition for an app stack
+  which creates a WordPress workload when the stack is installed. It
+  uses the helm 2 templating engine to process the resource files.
 
 ## User Prerequisites
 
