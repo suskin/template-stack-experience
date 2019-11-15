@@ -4,13 +4,11 @@ metadata:
   name: "my-wordpress"
 spec:
   # package points to the docker image for the stack.
-  # The stack could also come from a github repo url
-  package: "crossplane/stack-template-wordpress:master"
-
+  #
   # Even though we are using a docker image in the install request,
   # we could also have specified a git url instead.
-  # url: "github.com/crossplaneio/stack-template-wordpress"
-  #
+  package: "crossplane/stack-template-wordpress:master"
+
   # A stack can also be installed directly from an image or url
   # which does not have its own stack configuration. In that case,
   # the stack configuration can be specified in the stack install itself.

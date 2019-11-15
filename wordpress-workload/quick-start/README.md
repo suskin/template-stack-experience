@@ -88,9 +88,32 @@ metadata:
   name: "my-wordpress"
   namespace: dev
 spec:
+  # This can be a git url or a docker image repository
   package: "github.com/suskin/template-stacks-experience/wordpress-workload/quick-start/app-stack/go-kustomize"
-  data:
-    engineVersion: "5.7"
+
+  # A stack can also be installed directly from an image or url
+  # which does not have its own stack configuration. In that case,
+  # the stack configuration can be specified in the stack install itself.
+  # stackConfiguration:
+  #   title: "Wordpress Stack"
+  #   configure:
+  #     - directory: configure/
+  #       engine:
+  #         type: go-kustomize
+  #         configuration:
+  #           data:
+  #             imageid: "wordpress:5-fpm-alpine"
+
+
+  # In the case that the stack has a "configure" phase hook, the stack install
+  # can also specify configuration to be passed directly to the engine processing
+  # the hook. The configuration is namespaced so that it doesn't collide with any
+  # other configuration. In a non-install CRD, it would not need to be namespaced
+  # so aggressively, because the CRD may only be used for triggering and configuring
+  # a resource processing engine.
+  configure:
+    data:
+      engineVersion: "5.7"
 EOF
 
 kubectl apply -f install-app.yaml
@@ -109,8 +132,9 @@ metadata:
   namespace: dev
 spec:
   package: "github.com/suskin/template-stacks-experience/wordpress-workload/quick-start/app-stack/helm2"
-  data:
-    engineVersion: "5.7"
+  configure:
+    data:
+      engineVersion: "5.7"
 EOF
 
 kubectl apply -f install-app.yaml
