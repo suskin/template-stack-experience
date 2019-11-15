@@ -66,7 +66,7 @@ metadata:
   name: "gcp-resource-pack"
   namespace: dev
 spec:
-  package: "github.com/suskin/template-stacks-experience/wordpress-workload/quick-start/resource-packs/dev/gcp"
+  package: "github.com/suskin/template-stack-experience/wordpress-workload/quick-start/resource-packs/dev/gcp"
 EOF
 
 kubectl apply -f install-resource-pack.yaml
@@ -89,7 +89,7 @@ metadata:
   namespace: dev
 spec:
   # This can be a git url or a docker image repository
-  package: "github.com/suskin/template-stacks-experience/wordpress-workload/quick-start/app-stack/go-kustomize"
+  package: "github.com/suskin/template-stack-experience/wordpress-workload/quick-start/app-stack/go-kustomize"
 
   # A stack can also be installed directly from an image or url
   # which does not have its own stack configuration. In that case,
@@ -131,7 +131,7 @@ metadata:
   name: "my-wordpress"
   namespace: dev
 spec:
-  package: "github.com/suskin/template-stacks-experience/wordpress-workload/quick-start/app-stack/helm2"
+  package: "github.com/suskin/template-stack-experience/wordpress-workload/quick-start/app-stack/helm2"
   configure:
     data:
       engineVersion: "5.7"
