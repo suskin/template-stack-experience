@@ -1,0 +1,113 @@
+# Stack configuration
+#
+# A stack's configuration contains all of its metadata, plus other configuration.
+#
+# Normally, some of the metadata (such as the name of the stack)
+# would be higher up in the document, but for the purposes
+# of this conceptual demo, the behavioral configuration is at the top instead.
+
+# Behaviors specify what should be done in response to different events.
+behaviors:
+  # This configures the engine which will process the resource files for this stack.
+  # This can be specified in multiple places, and the deepest one wins.
+  #
+  # It can be specified under:
+  # .behaviors.engine
+  # .behaviors.crds.engine
+  # .behaviors.crds.MYCRD.DOMAIN.engine
+  # .behaviors.crds.MYCRD.DOMAIN.hooks.HOOKNAME.[i].engine
+  # (speculative) .behaviors.hooks.HOOKNAME.[i].engine
+  #
+  # If it is specified at a per-hook level, the hook will not use any of the configuration
+  # specified at the stack level. Maybe in the future we can figure out a nice way to merge
+  # them if it's used a lot.
+  engine:
+
+    # The engine with which the configuration will be processed.
+    # Accepted engines are: kustomize, go-kustomize, helm2
+    # In some situations, we may be able to infer which engine should be used.
+    type: go-kustomize
+
+  # Events for crds are namespaced within their own key, to keep them separate from
+  # other types of events.
+  crds:
+
+    # The CRD's KindGroup. This specifies configuration on a per-CRD level, including
+    # engine configuration and hook configuration.
+    resourcepack.gcp.wordpress.samples.stacks.crossplane.io:
+
+      # Configure the hook behaviors for a CRD; each hook corresponds to behavior for a single event.
+      # Supported events:
+      # * postCreate, which is called after an object is created
+      # * postUpdate, which is called after an existing object is changed 
+      hooks:
+
+        # This is the name of the event to configure some behavior for.
+        postCreate:
+          # directory
+          # For a docker image-based stack, the directory is the path from the workspace
+          # of the container. An absolute path can also be specified.
+          #
+          # For a github repo, the directory is relative to the root of the repo.
+          #
+          # '..' is not allowed.
+          #
+          # Note that this is a list of hooks, so that a stack can be configured to trigger multiple
+          # hooks for a single lifecycle event.
+          - directory: configure
+
+        postUpdate:
+          - directory: configure
+
+# Metadata
+#
+# Normally, some of the metadata would be higher up in the document, but for the purposes
+# of this demo, the behavioral configuration is at the top instead.
+#
+# The "type" or "scope" of a stack. This field is commented out as it is still somewhat
+# speculative.
+# Accepted values: workspace, environment
+# type: workspace
+
+# Below this point is metadata which is identical to what is currently in app.yaml.
+#
+# In this design, the contents of app.yaml would be moved into stack.yaml, because having
+# a single configuration file with both metadata and behavioral configuration is a familiar
+# pattern for application developers. And because it's easier to find all the configuration
+# if it's all in one place.
+#
+# Human readable title of application.
+title: Sample Wordpress Stack
+
+overviewShort: Cloud portable Wordpress deployments behind managed Kubernetes and SQL services are demonstrated in this Crossplane Stack.
+overview: |-
+ This Wordpress stack uses a simple controller that uses Crossplane to orchestrate managed SQL services and managed Kubernetes clusters which are then used to run a Wordpress deployment.
+ A simple Custom Resource Definition (CRD) is provided allowing for instances of this Crossplane managed Wordpress Stack to be provisioned with a few lines of yaml.
+ The Sample Wordpress Stack is intended for demonstration purposes and should not be used to deploy production instances of Wordpress.
+
+# Maintainer names and emails.
+maintainers:
+- name: Daniel Suskin
+  email: daniel@upbound.io
+
+# Owner names and emails.
+owners:
+- name: Daniel Suskin
+  email: daniel@upbound.io
+
+# Human readable company name.
+company: Upbound
+
+# Keywords that describe this application and help search indexing
+keywords:
+- "samples"
+- "examples"
+- "tutorials"
+- "wordpress"
+
+# Links to more information about the application (about page, source code, etc.)
+website: "https://upbound.io"
+source: "https://github.com/crossplaneio/sample-stack-wordpress"
+
+# License SPDX name: https://spdx.org/licenses/
+license: Apache-2.0

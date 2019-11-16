@@ -1,73 +1,20 @@
 # Stack configuration
 #
 # A stack's configuration contains all of its metadata, plus other configuration.
-#
-# Normally, some of the metadata (such as the name of the stack)
-# would be higher up in the document, but for the purposes
-# of this conceptual demo, the behavioral configuration is at the top instead.
-
 
 # Behaviors specify what should be done in response to different events.
 behaviors:
 
-  # The quick start doesn't use any CRDs, but if we wanted to have behaviors
-  # happen in response to objects being created for specific CRDs, we would configure
-  # that in the behaviors block.
-  # crds:
-  #   wordpressinstance.wordpress.samples.stacks.crossplane.io:
+  engine:
+    type: helm2
 
-  # Lifecycle hooks. These are behaviors which are triggered by specific events occurring.
-  hooks:
-
-    # Configuration lifecycle hook
-    # This hook is triggered when a stack is first installed. The input for any engine is the StackInstall's spec object.
-    configure:
-      # directory
-      # For a docker image-based stack, the directory is the path from the workspace
-      # of the container. An absolute path can also be specified.
-      #
-      # For a github repo, the directory is relative to the root of the repo.
-      #
-      # '..' is not allowed.
-      #
-      # Note that this is a list of hooks, so that a stack can be configured to trigger multiple
-      # hooks for a single lifecycle event.
-      - directory: configure
-
-        # Even though we're specifying a directory for this stack configuration, and bundling it
-        # in our stack, a git url or stack package could also be specified as the source of
-        # the stack. If url or package is specified, directory will be used in the following ways:
-        # - For url: directory will be the directory relative to the repository root.
-        # - For package: directory will be the directory relative to the image's workspace. (An
-        #   absolute directory can also be specified, to be relative to the root of the filesystem.)
-        # url: github.com/crossplaneio/stack-template-wordpress
-        # package: crossplane/stack-template-wordpress:latest
-
-        # This configures the engine which will process the resource files for this stack.
-        # This can be specified at a stack level, or at a per-hook level.
-        #
-        # If it is specified at a per-hook level, the hook will not use any of the configuration
-        # specified at the stack level. Maybe in the future we can figure out a nice way to merge
-        # them if it's used a lot.
-        engine:
-
-          # The engine with which the configuration will be processed.
-          # Accepted engines are: kustomize, go-kustomize, helm2
-          # In some situations, we may be able to infer which engine should be used.
-          type: helm2
-
-          # Configuration is used to configure the specific engine
-          # which was chosen. The subkeys of configuration are specific to the engine which
-          # is selected.
-          configuration:
-
-            # The fields of this key will be passed into the helm templating engine as template values.
-            #
-            # Data can also be overridden by setting fields on the .spec field of the object
-            # which triggered the resource processing. In the case of a 'configure' event,
-            # the object which triggers it is the StackInstall object.
-            data:
-              engineVersion: "8.0"
+  crds:
+    wordpressinstance.wordpress.samples.stacks.crossplane.io:
+      hooks:
+        postCreate:
+          - directory: configure
+        postUpdate:
+          - directory: configure
 
 # Metadata
 #
@@ -79,13 +26,6 @@ behaviors:
 # Accepted values: workspace, environment
 # type: workspace
 
-# Below this point is metadata which is identical to what is currently in app.yaml.
-#
-# In this design, the contents of app.yaml would be moved into stack.yaml, because having
-# a single configuration file with both metadata and behavioral configuration is a familiar
-# pattern for application developers. And because it's easier to find all the configuration
-# if it's all in one place.
-#
 # Human readable title of application.
 title: Sample Wordpress Stack
 

@@ -9,26 +9,20 @@ spec:
   # we could also have specified a git url instead.
   package: "crossplane/stack-template-wordpress:master"
 
+  # Speculative design:
+  #
   # A stack can also be installed directly from an image or url
   # which does not have its own stack configuration. In that case,
   # the stack configuration can be specified in the stack install itself.
-  # stackConfiguration:
+  # configuration:
   #   title: "Wordpress Stack"
-  #   configure:
-  #     - directory: configure/
-  #       engine:
-  #         type: go-kustomize
-  #         configuration:
-  #           data:
-  #             imageid: "wordpress:5-fpm-alpine"
+  #   behaviors:
+  #     crds:
+  #     ...
   #
-  # In the case that the stack has a "configure" phase hook, the stack install
-  # can also specify configuration to be passed directly to the engine processing
-  # the hook. The configuration is namespaced so that it doesn't collide with any
-  # other configuration. In a non-install CRD, it would not need to be namespaced
-  # so aggressively, because the CRD may only be used for triggering and configuring
-  # a resource processing engine.
-  # configure:
-  #   data:
-  #     imageid: "wordpress:5-fpm-alpine"
-  #
+  # The reason the design is speculative is because a lot of questions would
+  # need to be answered, and we don't need to answer them yet to get some template
+  # stack functionality working. Questions include:
+  # * What if the CRD files are not in a stack-friendly location or format?
+  # * What if the configuration files are not in a stack-friendly location or format?
+  # * Can we get early validation for the configuration which is being passed in?
